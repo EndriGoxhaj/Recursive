@@ -1,15 +1,20 @@
-class mergeSort {
-  constructor(arr) {
-    this.arr = arr;
+function merge(a, b, c = [], j = 0, i = 0, k = 0) {
+  if (i == a.length && j == b.length) {
+    console.log(c);
+    return c;
   }
-  sort(left, right) {
-    let mid = this.arr.length / 2;
-    left = this.arr.slice(0, mid);
-    right = this.arr.slice(0);
-    return { left, right };
+  if (a[i] <= b[j]) {
+    c[k++] = a[i++];
+  } else c[k++] = b[j++];
+  if (i == a.length && j != b.length) {
+    c.push(...b.slice(++j));
+    j = b.length;
+    return merge(a, b, c, j, i, k);
+  } else {
+    c.push(...a.slice(i));
+    i = a.length;
+    return merge(a, b, c, j, i, k);
   }
-  merge;
 }
-let array = new sort([3, 23, 4, 54, 2, 41, 9]);
-let newArray = array.sort();
-console.log(newArray.left);
+let array = merge([2, 12, 33, 45, 65], [12, 22, 43, 65, 70]);
+console.log(array);
