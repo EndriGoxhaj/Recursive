@@ -1,19 +1,22 @@
-function merge(a, b, c = [], j = 0, i = 0, k = 0) {
+function merge(a, b, c = [], j = 0, i = 0) {
   if (i == a.length && j == b.length) {
     console.log(c);
     return c;
   }
-  if (a[i] <= b[j]) {
-    c[k++] = a[i++];
-  } else c[k++] = b[j++];
-  if (i == a.length && j != b.length) {
+  if (i == a.length) {
     c.push(...b.slice(++j));
-    j = b.length;
-    return merge(a, b, c, j, i, k);
-  } else {
+    return c;
+  }
+  if (j == b.length) {
     c.push(...a.slice(i));
-    i = a.length;
-    return merge(a, b, c, j, i, k);
+    return c;
+  }
+  if (a[i] <= b[j]) {
+    c.push(a[i++]);
+    return merge(a, b, c, j, i);
+  } else {
+    c.push(b[j++]);
+    return merge(a, b, c, j, i);
   }
 }
 let array = merge([2, 12, 33, 45, 65], [12, 22, 43, 65, 70]);
