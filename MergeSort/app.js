@@ -1,10 +1,9 @@
 function merge(a, b, c = [], j = 0, i = 0) {
   if (i == a.length && j == b.length) {
-    console.log(c);
     return c;
   }
   if (i == a.length) {
-    c.push(...b.slice(++j));
+    c.push(...b.slice(j));
     return c;
   }
   if (j == b.length) {
@@ -19,5 +18,18 @@ function merge(a, b, c = [], j = 0, i = 0) {
     return merge(a, b, c, j, i);
   }
 }
-let array = merge([2, 12, 33, 45, 65], [12, 22, 43, 65, 70]);
-console.log(array);
+
+function mergeSort(array) {
+  if (array.length <= 1) {
+    return array;
+  } else {
+    const m = Math.floor(array.length / 2);
+    const left = mergeSort(array.slice(0, m));
+    const right = mergeSort(array.slice(m));
+    return merge(left, right);
+  }
+}
+
+let array = [8, 3, 44, 12, 43, 22, 98];
+let arrayb = [32, 5, 3, 4, 76, 987, 42, 1344, 53, 3];
+console.log(mergeSort(array));
